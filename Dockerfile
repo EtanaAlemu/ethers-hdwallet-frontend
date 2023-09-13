@@ -1,6 +1,6 @@
-FROM node:18-alpine
-WORKDIR /src
-COPY package.json package-lock.json /src/
+FROM node:18-alpine AS development
+WORKDIR /app
+COPY package.json package-lock.json /app/
 
 # ENV NODE_ENV=production
 # RUN npm install --production
@@ -8,7 +8,7 @@ COPY package.json package-lock.json /src/
 ENV NODE_ENV=developmet
 RUN npm install 
 
-COPY . /src
+COPY . /app
 EXPOSE 3000
 
 CMD ["npm", "run", "dev"]

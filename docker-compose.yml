@@ -1,13 +1,46 @@
 version: '3.8'
 services:
-  web:
+  ethers-next-js:
+    container_name: ethers-next-js
+    restart: always
     build:
       context: ./
-      target: runner
+      target: development
+    image: ethers-next-js
     volumes:
       - .:/app
-    command: npm run dev
-    ports:
-      - "3000:3000"
+    env_file: 
+      - .env
     environment:
       NODE_ENV: development
+      NEXT_PUBLIC_API_HOST: ethers-node-js
+    # command: npm run dev
+    ports:
+      - 3000:3000
+    depends_on:
+      - ethers-node-js
+  ethers-node-js:
+    container_name: ethers-node-js
+    restart: always
+    # build:
+    #   context: ./
+    #   target: development
+      # target: production
+    image: ethers-node-js
+    environment:
+      DB_HOST: mongodb
+      PORT: 5000
+    ports:
+      - 5000:5000
+    depends_on:
+      - mongodb
+  mongodb:
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27018:27017
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+volumes:
+  mongodb_data:

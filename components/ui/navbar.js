@@ -8,16 +8,15 @@ export default function Navbar() {
 
   const currentRoute = usePathname();
   const router = useRouter(); // Initialize router
-  
+
   const handleLogout = async () => {
-        localStorage.removeItem("username");
-        localStorage.removeItem("role");
-        localStorage.removeItem("address");
-        localStorage.removeItem("id");
-        localStorage.removeItem("access_token");
-        
-        router.push("/"); 
-      
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    localStorage.removeItem("address");
+    localStorage.removeItem("id");
+    localStorage.removeItem("access_token");
+
+    router.push("/");
   };
   return (
     <Nav shouldHideOnScroll>
@@ -26,20 +25,17 @@ export default function Navbar() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link href="/" 
-            color={currentRoute === '/' ? "primary" : "foreground"}>
+          <Link href="/" color={currentRoute === "/" ? "primary" : "foreground"}>
             Home
           </Link>
         </NavbarItem>
-        <NavbarItem >
-          <Link href="/transaction" 
-            color={currentRoute === '/transaction' ? "primary" : "foreground"}>
+        <NavbarItem>
+          <Link href="/transaction" color={currentRoute === "/transaction" ? "primary" : "foreground"}>
             Transaction
           </Link>
         </NavbarItem>
-        <NavbarItem >
-          <Link href="/wallet" 
-            color={currentRoute === '/wallet' ? "primary" : "foreground"}>
+        <NavbarItem>
+          <Link href="/wallet" color={currentRoute === "/wallet" ? "primary" : "foreground"}>
             Wallet
           </Link>
         </NavbarItem>
@@ -64,7 +60,7 @@ export default function Navbar() {
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">zoey@example.com</p>
+                <p className="font-semibold">{localStorage.getItem("username")}</p>
               </DropdownItem>
               <DropdownItem key="settings">My Settings</DropdownItem>
               <DropdownItem key="team_settings">Team Settings</DropdownItem>
